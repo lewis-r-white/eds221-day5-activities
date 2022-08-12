@@ -46,6 +46,7 @@ Create a ggplot graph of total US tilapia imports over time, for those four coun
 ```{r}
 ggplot(data = tilapia_subset, aes(x = year, y = tilapia_volume)) + 
   geom_line(aes(color = country), na.rm = TRUE) +
+  scale_color_manual(values=c("purple", "red", "green", "blue")) +
   labs(x = "Year",
        y = "total tilapia volume",
        title = "Tilapia Import Volume by Year") +
