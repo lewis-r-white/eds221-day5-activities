@@ -1,0 +1,44 @@
+---
+title: "eds 221 day 5 activity"
+author: "Lewis White"
+date: "2022-08-12"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(here)
+library(tidyverse)
+```
+
+# Task 1
+
+```{r}
+source(here("src", "storm_runoff.R"))
+
+predict_runoff(Ia = 2, A = 3)
+
+Ia_vec <- seq(from = 0.6, to = 0.8, by = 0.01)
+
+runoff_vec <- predict_runoff(Ia_vec, A = 182)
+
+water_df <- data_frame(Ia_vec, runoff_vec)
+```
+
+Create a ggplot graph that has both dots and connecting lines (i.e., you’ll layer geom_point() and geom_line(). Update axis labels. Export a png of your graph to the figs folder using ggsave.
+
+```{r}
+runoff_fig  <- ggplot(data = water_df, aes(x = Ia_vec, y = runoff_vec)) + 
+  geom_point() + 
+  geom_line() +
+  labs(x = "Impervious Fraction",
+       y = "Runoff volume (units)",
+       title = "runoff and ia fraction")
+```
+
+```{r}
+ggsave(here("src", "runoff_fig.png"))
+```
